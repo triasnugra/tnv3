@@ -1,0 +1,46 @@
+[
+ {
+  "d": "2026-11-26",
+  "mesin": "3.0",
+  "dipindai": 56,
+  "kandidat": 0,
+  "dicatat": 0,
+  "live": 0,
+  "shadow": 0,
+  "ditolak": {
+   "data-tidak-valid": 4,
+   "tanpa-pemicu": 33,
+   "jauh-dari-entry": 13,
+   "melawan-btc": 19,
+   "sl-lebar": 3,
+   "ruang-target-sempit": 4,
+   "usang-tp-tercapai": 2,
+   "likuiditas-rendah": 14
+  },
+  "btc": {
+   "tr": -1,
+   "td": -1,
+   "tw": -1,
+   "ret3d": -1.33,
+   "ret7d": -4.14,
+   "px": 60458
+  },
+  "arah": {
+   "LONG": {
+    "status": "shadow",
+    "rataR": null,
+    "selesai": 0,
+    "jendela": 0,
+    "pemanasan": true
+   },
+   "SHORT": {
+    "status": "live",
+    "rataR": null,
+    "selesai": 0,
+    "jendela": 0,
+    "pemanasan": true
+   }
+  },
+  "detail": []
+ }
+]

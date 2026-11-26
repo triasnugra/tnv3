@@ -1,0 +1,253 @@
+{
+ "dibuat": "2026-11-26T08:09:56.810Z",
+ "mesin": null,
+ "totalBaris": 0,
+ "menunggu": 0,
+ "putusan": {
+  "status": "BELUM SAH",
+  "alasan": [
+   "Kemajuan 0/150 trade terisi, 0/20 minggu. Angka sebelum syarat terpenuhi hanya kemajuan, bukan bukti."
+  ],
+  "prog": {
+   "terisi": 0,
+   "perlu": 150,
+   "minggu": 0,
+   "perluMinggu": 20
+  }
+ },
+ "semua": {
+  "sinyal": 0,
+  "terisi": 0,
+  "tidakTerisi": 0,
+  "batal": 0,
+  "TP": 0,
+  "SL": 0,
+  "kedaluwarsa": 0,
+  "win": null,
+  "expectancy": null,
+  "perSinyal": null,
+  "PF": null,
+  "total": 0,
+  "maxDD": 0,
+  "minggu": 0,
+  "ci95": null,
+  "mingguCI": 0
+ },
+ "live": {
+  "sinyal": 0,
+  "terisi": 0,
+  "tidakTerisi": 0,
+  "batal": 0,
+  "TP": 0,
+  "SL": 0,
+  "kedaluwarsa": 0,
+  "win": null,
+  "expectancy": null,
+  "perSinyal": null,
+  "PF": null,
+  "total": 0,
+  "maxDD": 0,
+  "minggu": 0,
+  "ci95": null,
+  "mingguCI": 0
+ },
+ "shadow": {
+  "sinyal": 0,
+  "terisi": 0,
+  "tidakTerisi": 0,
+  "batal": 0,
+  "TP": 0,
+  "SL": 0,
+  "kedaluwarsa": 0,
+  "win": null,
+  "expectancy": null,
+  "perSinyal": null,
+  "PF": null,
+  "total": 0,
+  "maxDD": 0,
+  "minggu": 0,
+  "ci95": null,
+  "mingguCI": 0
+ },
+ "perArahMode": {
+  "LONG/live": {
+   "sinyal": 0,
+   "terisi": 0,
+   "tidakTerisi": 0,
+   "batal": 0,
+   "TP": 0,
+   "SL": 0,
+   "kedaluwarsa": 0,
+   "win": null,
+   "expectancy": null,
+   "perSinyal": null,
+   "PF": null,
+   "total": 0,
+   "maxDD": 0,
+   "minggu": 0,
+   "ci95": null,
+   "mingguCI": 0
+  },
+  "LONG/shadow": {
+   "sinyal": 0,
+   "terisi": 0,
+   "tidakTerisi": 0,
+   "batal": 0,
+   "TP": 0,
+   "SL": 0,
+   "kedaluwarsa": 0,
+   "win": null,
+   "expectancy": null,
+   "perSinyal": null,
+   "PF": null,
+   "total": 0,
+   "maxDD": 0,
+   "minggu": 0,
+   "ci95": null,
+   "mingguCI": 0
+  },
+  "SHORT/live": {
+   "sinyal": 0,
+   "terisi": 0,
+   "tidakTerisi": 0,
+   "batal": 0,
+   "TP": 0,
+   "SL": 0,
+   "kedaluwarsa": 0,
+   "win": null,
+   "expectancy": null,
+   "perSinyal": null,
+   "PF": null,
+   "total": 0,
+   "maxDD": 0,
+   "minggu": 0,
+   "ci95": null,
+   "mingguCI": 0
+  },
+  "SHORT/shadow": {
+   "sinyal": 0,
+   "terisi": 0,
+   "tidakTerisi": 0,
+   "batal": 0,
+   "TP": 0,
+   "SL": 0,
+   "kedaluwarsa": 0,
+   "win": null,
+   "expectancy": null,
+   "perSinyal": null,
+   "PF": null,
+   "total": 0,
+   "maxDD": 0,
+   "minggu": 0,
+   "ci95": null,
+   "mingguCI": 0
+  }
+ },
+ "perPemicu": {},
+ "perGrade": {},
+ "perRezimBTC": {},
+ "baseline": {
+  "LONG": {
+   "n": 0
+  },
+  "SHORT": {
+   "n": 0
+  }
+ },
+ "saringanFitur": {
+  "LONG": {
+   "n": 0,
+   "uji": [],
+   "lolos": [],
+   "kandidat": [],
+   "catatan": "butuh >= 60 trade TP/SL terisi (ada 0)"
+  },
+  "SHORT": {
+   "n": 0,
+   "uji": [],
+   "lolos": [],
+   "kandidat": [],
+   "catatan": "butuh >= 60 trade TP/SL terisi (ada 0)"
+  }
+ },
+ "mingguan": [],
+ "auditPemutus": {
+  "catatan": "Shadow = sinyal yang dicatat tetapi tidak boleh dieksekusi karena arahnya diblokir pemutus. Bila shadow rugi, pemutus menyelamatkan modal; bila shadow untung, pemutus melewatkan peluang.",
+  "LONG": {
+   "live": {
+    "sinyal": 0,
+    "terisi": 0,
+    "tidakTerisi": 0,
+    "batal": 0,
+    "TP": 0,
+    "SL": 0,
+    "kedaluwarsa": 0,
+    "win": null,
+    "expectancy": null,
+    "perSinyal": null,
+    "PF": null,
+    "total": 0,
+    "maxDD": 0,
+    "minggu": 0,
+    "ci95": null,
+    "mingguCI": 0
+   },
+   "shadow": {
+    "sinyal": 0,
+    "terisi": 0,
+    "tidakTerisi": 0,
+    "batal": 0,
+    "TP": 0,
+    "SL": 0,
+    "kedaluwarsa": 0,
+    "win": null,
+    "expectancy": null,
+    "perSinyal": null,
+    "PF": null,
+    "total": 0,
+    "maxDD": 0,
+    "minggu": 0,
+    "ci95": null,
+    "mingguCI": 0
+   }
+  },
+  "SHORT": {
+   "live": {
+    "sinyal": 0,
+    "terisi": 0,
+    "tidakTerisi": 0,
+    "batal": 0,
+    "TP": 0,
+    "SL": 0,
+    "kedaluwarsa": 0,
+    "win": null,
+    "expectancy": null,
+    "perSinyal": null,
+    "PF": null,
+    "total": 0,
+    "maxDD": 0,
+    "minggu": 0,
+    "ci95": null,
+    "mingguCI": 0
+   },
+   "shadow": {
+    "sinyal": 0,
+    "terisi": 0,
+    "tidakTerisi": 0,
+    "batal": 0,
+    "TP": 0,
+    "SL": 0,
+    "kedaluwarsa": 0,
+    "win": null,
+    "expectancy": null,
+    "perSinyal": null,
+    "PF": null,
+    "total": 0,
+    "maxDD": 0,
+    "minggu": 0,
+    "ci95": null,
+    "mingguCI": 0
+   }
+  }
+ }
+}

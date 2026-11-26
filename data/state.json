@@ -1,0 +1,51 @@
+{
+ "updated": "2026-11-26T08:09:56.811Z",
+ "chain": {
+  "ok": true,
+  "n": 0,
+  "head": null,
+  "errors": []
+ },
+ "protokol": {
+  "mulai": "2026-11-26T08:09:53.945Z",
+  "engine": "915e23ff72ebfcb6"
+ },
+ "dihitung": 0,
+ "tidakDihitung": 0,
+ "arah": {
+  "LONG": {
+   "status": "shadow",
+   "rataR": null,
+   "selesai": 0,
+   "jendela": 0,
+   "pemanasan": true
+  },
+  "SHORT": {
+   "status": "live",
+   "rataR": null,
+   "selesai": 0,
+   "jendela": 0,
+   "pemanasan": true
+  }
+ },
+ "btc": {
+  "tr": -1,
+  "td": -1,
+  "tw": -1,
+  "ret3d": -1.33,
+  "ret7d": -4.14,
+  "px": 60458
+ },
+ "putusan": {
+  "status": "BELUM SAH",
+  "alasan": [
+   "Kemajuan 0/150 trade terisi, 0/20 minggu. Angka sebelum syarat terpenuhi hanya kemajuan, bukan bukti."
+  ],
+  "prog": {
+   "terisi": 0,
+   "perlu": 150,
+   "minggu": 0,
+   "perluMinggu": 20
+  }
+ }
+}

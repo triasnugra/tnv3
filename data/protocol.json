@@ -1,0 +1,28 @@
+{
+ "versi": 1,
+ "versiMesin": "3.0",
+ "engine": "915e23ff72ebfcb6",
+ "mulai": "2026-11-26T08:09:53.945Z",
+ "gate": {
+  "minFilled": 150,
+  "minWeeks": 20,
+  "minPF": 1.2,
+  "maxDD": 15
+ },
+ "breaker": {
+  "window": 20,
+  "minResolved": 10,
+  "enableAbove": 0.1,
+  "disableAtOrBelow": 0,
+  "start": {
+   "LONG": "shadow",
+   "SHORT": "live"
+  }
+ },
+ "aturan": [
+  "Jangan ubah signals.mjs/config.mjs/trade-sim.mjs: hash berubah, baris baru tidak dihitung. Untuk mesin baru hapus data/protocol.json.",
+  "Jangan ubah kriteria lulus setelah dimulai.",
+  "Jangan edit/hapus baris jurnal: rantai hash menandainya.",
+  "Jangan menilai hasil sebelum syarat sampel terpenuhi."
+ ]
+}
