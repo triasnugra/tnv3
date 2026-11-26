@@ -1,0 +1,68 @@
+name: Scan, nilai dan publikasi
+on:
+  schedule:
+    - cron: '20 1 * * *'        # scan harian (setelah candle harian UTC tutup) + penilaian
+    - cron: '40 7,13,19 * * *'  # penilaian saja (3x sehari)
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'scan = nilai + scan baru; grade = hanya nilai'
+        type: choice
+        options: [scan, grade]
+        default: scan
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: mesin-v3
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Tes (mesin tidak boleh jalan bila tes gagal)
+        run: npm test
+      - name: Tentukan mode
+        id: m
+        env:
+          EVENT: ${{ github.event_name }}
+          SCHED: ${{ github.event.schedule }}
+          INPUT: ${{ inputs.mode }}
+        run: |
+          mode=scan
+          if [ "$EVENT" = "schedule" ] && [ "$SCHED" != "20 1 * * *" ]; then mode=grade; fi
+          if [ "$EVENT" = "workflow_dispatch" ] && [ "$INPUT" = "grade" ]; then mode=grade; fi
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+      - name: Jalankan ${{ steps.m.outputs.mode }}
+        run: node scripts/${{ steps.m.outputs.mode }}.mjs
+      - name: Laporan dan verifikasi rantai
+        run: node scripts/report.mjs
+      - name: Simpan data ke repo
+        run: |
+          git config user.name "mesin-v3[bot]"
+          git config user.email "mesin-v3@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then echo "tidak ada perubahan data"; else
+            git commit -m "data: ${{ steps.m.outputs.mode }} $(date -u +%F' '%H:%M) UTC"
+            for i in 1 2 3; do git pull --rebase origin "${GITHUB_REF_NAME}" && git push && break || sleep 5; done
+          fi
+      - name: Susun situs
+        run: node scripts/build-site.mjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+  deploy:
+    needs: run
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.d.outputs.page_url }}
+    steps:
+      - id: d
+        uses: actions/deploy-pages@v4
