@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mesin v3 — Forward Test Crypto</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#14181f;--mut:#5b6573;--line:#e3e7ee;--acc:#1f6feb;--ok:#127a3d;--okbg:#e3f5ea;--bad:#b3261e;--badbg:#fdeceb;--warn:#8a5a00;--warnbg:#fff4d6;--sh:#6b7280;--shbg:#eceff3}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1116;--card:#161b22;--ink:#e6eaf0;--mut:#9aa5b4;--line:#2a313c;--acc:#5aa2ff;--ok:#4cd07d;--okbg:#10301d;--bad:#ff7b72;--badbg:#3a1614;--warn:#f2c14e;--warnbg:#3a2e10;--sh:#9aa5b4;--shbg:#20262f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:20px;margin:0}h2{font-size:15px;margin:26px 0 10px}
+.top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.sub{color:var(--mut);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
+.v{font-size:20px;font-weight:650;margin-top:2px}
+.chip{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;font-weight:600}
+.live,.TP,.LULUS{background:var(--okbg);color:var(--ok)}
+.shadow{background:var(--shbg);color:var(--sh)}
+.SL,.GAGAL{background:var(--badbg);color:var(--bad)}
+.BELUM{background:var(--warnbg);color:var(--warn)}
+.banner{border-radius:10px;padding:10px 14px;margin:14px 0;background:var(--warnbg);color:var(--warn);font-weight:550}
+.banner.bad{background:var(--badbg);color:var(--bad)}
+.bar{height:8px;background:var(--line);border-radius:6px;overflow:hidden;margin-top:6px}.bar>i{display:block;height:100%;background:var(--acc)}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:6px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}th{color:var(--mut);font-weight:600;font-size:12px}
+tr.dim td{opacity:.55}
+.pos{color:var(--ok)}.neg{color:var(--bad)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+input,select{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:5px 8px;font:inherit}
+.note{color:var(--mut);font-size:12px;margin-top:6px}
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div><h1>Mesin v3 — forward test</h1><div class="sub" id="upd">memuat…</div></div>
+    <div id="status"></div>
+  </div>
+  <div id="banner"></div>
+  <div class="grid" id="kpi"></div>
+
+  <h2>Sinyal aktif</h2>
+  <div class="tools">
+    <label>Ekuitas <input id="eq" type="number" min="0" step="any" placeholder="mis. 1000" style="width:110px"></label>
+    <label>Risiko per trade % <input id="rk" type="number" min="0" step="0.05" value="0.25" style="width:80px"></label>
+  </div>
+  <div class="card wrap"><table id="open"></table></div>
+  <div class="note">Ukuran posisi = ekuitas × risiko% ÷ jarak SL%. Hanya baris <b>live</b> boleh dieksekusi. <b>Shadow</b> dicatat untuk audit pemutus arah dan tidak boleh diperdagangkan.</div>
+
+  <h2>Hasil forward test</h2>
+  <div class="card wrap"><table id="sum"></table></div>
+  <div class="note">E = rata-rata R bersih per trade terisi setelah biaya. CI 95% = bootstrap per minggu. Sebelum syarat sampel terpenuhi, angka hanyalah kemajuan, bukan bukti.</div>
+
+  <h2>Pembanding: MARKET dan MIRROR</h2>
+  <div class="card wrap"><table id="base"></table></div>
+  <div class="note">R bersih per sinyal. MIRROR = arah dibalik dengan risiko sama. Bila MIRROR sama baiknya dengan mesin, hasilnya kemungkinan beta pasar, bukan keahlian memilih setup.</div>
+
+  <h2>Fitur yang diuji</h2>
+  <div class="card" id="screen"></div>
+
+  <h2>Riwayat</h2>
+  <div class="tools">
+    <select id="fm"><option value="">semua mode</option><option>live</option><option>shadow</option></select>
+    <select id="fa"><option value="">semua arah</option><option>LONG</option><option>SHORT</option></select>
+    <select id="fh"><option value="">semua hasil</option><option>TP</option><option>SL</option><option>kedaluwarsa</option><option>tidak terisi</option><option>menunggu</option></select>
+  </div>
+  <div class="card wrap"><table id="hist"></table></div>
+
+  <h2>Corong penolakan (scan terakhir)</h2>
+  <div class="card wrap"><table id="funnel"></table></div>
+  <div class="note" id="foot"></div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const el=(t,a={},...c)=>{const e=document.createElement(t);for(const[k,v]of Object.entries(a)){if(k==='class')e.className=v;else e.setAttribute(k,v)}for(const x of c.flat())e.append(x?.nodeType?x:document.createTextNode(x??''));return e};
+const chip=(t,c)=>el('span',{class:'chip '+(c||t)},t);
+const f=(v,d=2)=>v==null||typeof v==='string'?(v??'–'):v.toFixed(d);
+const pc=v=>v==null?'–':(v*100).toFixed(1)+'%';
+const sgn=v=>v==null?'':v>0?'pos':v<0?'neg':'';
+const px=v=>v>=100?v.toFixed(2):v>=1?v.toFixed(4):v.toPrecision(4);
+const ago=t=>{const h=(Date.now()-t)/36e5;return h<48?Math.round(h)+' jam':Math.round(h/24)+' hari'};
+const get=async u=>{try{const r=await fetch(u+'?'+Date.now());return r.ok?await r.json():null}catch{return null}};
+function tbl(t,head,rows,cls){t.replaceChildren(el('thead',{},el('tr',{},head.map(h=>el('th',{},h)))),el('tbody',{},rows.map((r,i)=>el('tr',{class:cls?.[i]||''},r.map(c=>el('td',{},c))))))}
+
+(async()=>{
+const [journal,A,S,funnel,proto]=await Promise.all([get('data/journal.json'),get('data/analysis.json'),get('data/state.json'),get('data/funnel.json'),get('data/protocol.json')]);
+$('upd').textContent=S?'Diperbarui '+new Date(S.updated).toLocaleString('id-ID')+' · protokol mulai '+(S.protokol?new Date(S.protokol.mulai).toLocaleDateString('id-ID'):'–'):'Belum ada data. Jalankan workflow pertama.';
+const rows=journal||[];
+if(S&&A){
+  const st=A.putusan.status;$('status').append(chip(st==='BELUM SAH'?'BELUM SAH':st,st==='BELUM SAH'?'BELUM':st));
+  $('banner').append(el('div',{class:'banner'+(st==='GAGAL'?' bad':'')},st==='LULUS'?'Kriteria lulus terpenuhi. Mulai dengan risiko kecil dan evaluasi tiap minggu.':'MODE UJI: jangan eksekusi dengan uang nyata sebelum putusan LULUS. '+A.putusan.alasan[0]));
+  if(!S.chain.ok)$('banner').append(el('div',{class:'banner bad'},'RANTAI JURNAL RUSAK: '+(S.chain.errors[0]||'')));
+  const b=S.btc,pr=A.putusan.prog||{};
+  const dir=a=>{const d=S.arah[a];return el('div',{class:'card'},el('div',{class:'k'},'Arah '+a),el('div',{class:'v'},chip(d.status)),el('div',{class:'sub'},d.pemanasan?`pemanasan: ${d.jendela}/10 trade selesai (status awal)`:`rata-rata R bersih ${f(d.rataR)} dari ${d.jendela} trade terakhir`))};
+  $('kpi').append(
+    el('div',{class:'card'},el('div',{class:'k'},'Rezim BTC'),el('div',{class:'v'},b?`${['turun','netral','naik'][b.tw+1]} / ${['turun','netral','naik'][b.td+1]}`:'–'),el('div',{class:'sub'},b?`weekly / daily · 3h ${f(b.ret3d)}% · 7h ${f(b.ret7d)}%`:'tanpa data BTC valid → tidak ada sinyal')),
+    dir('LONG'),dir('SHORT'),
+    el('div',{class:'card'},el('div',{class:'k'},'Kemajuan ke evaluasi'),el('div',{class:'v'},`${pr.terisi??0}/${pr.perlu??150} terisi`),el('div',{class:'bar'},el('i',{style:`width:${Math.min(100,(pr.terisi||0)/(pr.perlu||150)*100)}%`})),el('div',{class:'sub'},`${pr.minggu??0}/${pr.perluMinggu??20} minggu`)));
+}
+// sinyal aktif
+const eq=()=>+$('eq').value||0,rk=()=>+$('rk').value||0;
+function renderOpen(){
+  const o=rows.filter(r=>r.hasil==='menunggu').sort((a,b)=>b.t-a.t);
+  if(!o.length){tbl($('open'),['Belum ada order aktif'],[]);return}
+  tbl($('open'),['Koin','Arah','Mode','Entry','SL','TP','SL %','Jarak','Umur','Ukuran posisi'],o.map(r=>{
+    const slp=Math.abs(r.entry-r.sl)/r.entry*100,d=Math.abs(r.harga_awal-r.entry)/r.harga_awal*100,size=eq()&&rk()?eq()*rk()/100/(slp/100):null;
+    return [r.aset,chip(r.arah,r.arah==='LONG'?'TP':'SL'),chip(r.mode),px(r.entry),px(r.sl),px(r.tp),f(slp)+'%',f(d)+'%',ago(r.t),r.mode==='live'?(size?'$'+size.toFixed(0):'isi ekuitas'):'jangan eksekusi']}),
+  o.map(r=>r.mode==='shadow'?'dim':''))}
+renderOpen();$('eq').oninput=$('rk').oninput=renderOpen;
+// ringkasan
+if(A){
+  const r=(n,b)=>[n,b.sinyal,b.terisi,b.TP,b.SL,b.kedaluwarsa,pc(b.win),el('span',{class:sgn(b.expectancy)},f(b.expectancy)),b.ci95?b.ci95.join(' … '):'–',f(b.PF),f(b.maxDD)];
+  tbl($('sum'),['Set','Selesai','Terisi','TP','SL','Kedaluwarsa','Win%','E (R)','CI 95%','PF','MaxDD (R)'],[r('Semua',A.semua),r('Live',A.live),r('Shadow',A.shadow),...Object.entries(A.perArahMode).map(([k,b])=>r(k,b))]);
+  tbl($('base'),['Arah','n','Mesin','MARKET','MIRROR','Mesin − MIRROR (CI)'],Object.entries(A.baseline).map(([k,b])=>[k,b.n,f(b.mesin),f(b.market),f(b.mirror),b.mesinMinusMirror==null?'–':f(b.mesinMinusMirror)+(b.ciMirror?' ('+b.ciMirror.join(' … ')+')':'')]));
+  $('screen').replaceChildren(...Object.entries(A.saringanFitur).map(([k,s])=>el('p',{},el('b',{},k+' (n='+s.n+'): '),s.catatan||`${s.jumlahUji} fitur diuji di data awal; kandidat: ${s.kandidat.join(', ')||'tidak ada'}; tervalidasi di data terbaru: ${s.lolos.map(x=>x.nama).join(', ')||'tidak ada'}.`)),el('div',{class:'note'},'Fitur baru boleh menjadi filter hanya bila tervalidasi di data yang tidak dipakai menemukannya, lalu diuji forward.'));
+}
+// riwayat
+function renderHist(){
+  const m=$('fm').value,a=$('fa').value,h=$('fh').value;
+  const x=rows.filter(r=>(!m||r.mode===m)&&(!a||r.arah===a)&&(!h||r.hasil===h)).sort((p,q)=>q.t-p.t).slice(0,200);
+  tbl($('hist'),['Waktu','Koin','Arah','Mode','Pemicu','Entry','SL','TP','Hasil','R'],x.map(r=>[r.waktu||'',r.aset,r.arah,chip(r.mode),r.trig||'',px(r.entry),px(r.sl),px(r.tp),chip(r.hasil+(r.batal?' (batal)':''),r.hasil==='TP'?'TP':r.hasil==='SL'?'SL':'shadow'),r.R==null?'–':el('span',{class:sgn(r.R)},f(r.R))]),x.map(r=>r.mode==='shadow'?'dim':''))}
+renderHist();$('fm').onchange=$('fa').onchange=$('fh').onchange=renderHist;
+// corong
+const fu=funnel?.at(-1);
+if(fu){const rj=Object.entries(fu.ditolak).sort((a,b)=>b[1]-a[1]);tbl($('funnel'),['Tahap','Jumlah'],[['Dipindai',fu.dipindai],['Kandidat lolos gerbang',fu.kandidat],['Dicatat (live / shadow)',`${fu.dicatat} (${fu.live} / ${fu.shadow})`],...rj.map(([k,v])=>['Ditolak: '+k,v])])}
+else tbl($('funnel'),['Belum ada scan'],[]);
+$('foot').textContent=proto?`Mesin ${proto.engine} · versi ${proto.versiMesin}. Mengubah signals/config/trade-sim mengubah hash dan memulai protokol baru.`:'';
+})();
+</script>
+</body>
+</html>

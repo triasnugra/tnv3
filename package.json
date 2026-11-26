@@ -1,0 +1,15 @@
+{
+  "name": "mesin-v3",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Mesin analisis crypto dengan pemutus arah adaptif, jurnal berantai hash, dan forward test jujur",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test",
+    "scan": "node scripts/scan.mjs",
+    "grade": "node scripts/grade.mjs",
+    "report": "node scripts/report.mjs",
+    "build": "node scripts/build-site.mjs"
+  }
+}
