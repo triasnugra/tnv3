@@ -42,5 +42,50 @@
    }
   },
   "detail": []
+ },
+ {
+  "d": "2026-11-27",
+  "mesin": "3.0",
+  "dipindai": 58,
+  "kandidat": 0,
+  "dicatat": 0,
+  "live": 0,
+  "shadow": 0,
+  "ditolak": {
+   "data-tidak-valid": 2,
+   "tanpa-pemicu": 36,
+   "melawan-btc": 17,
+   "jauh-dari-entry": 13,
+   "usang-tp-tercapai": 2,
+   "usang-sl-tertembus": 1,
+   "likuiditas-rendah": 16,
+   "sl-lebar": 1,
+   "ruang-target-sempit": 2
+  },
+  "btc": {
+   "tr": -1,
+   "td": -1,
+   "tw": -1,
+   "ret3d": -1.13,
+   "ret7d": -2.27,
+   "px": 60577.18
+  },
+  "arah": {
+   "LONG": {
+    "status": "shadow",
+    "rataR": null,
+    "selesai": 0,
+    "jendela": 0,
+    "pemanasan": true
+   },
+   "SHORT": {
+    "status": "live",
+    "rataR": null,
+    "selesai": 0,
+    "jendela": 0,
+    "pemanasan": true
+   }
+  },
+  "detail": []
  }
 ]
