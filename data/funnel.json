@@ -87,5 +87,62 @@
    }
   },
   "detail": []
+ },
+ {
+  "d": "2026-11-28",
+  "mesin": "3.0",
+  "dipindai": 57,
+  "kandidat": 1,
+  "dicatat": 1,
+  "live": 1,
+  "shadow": 0,
+  "ditolak": {
+   "data-tidak-valid": 3,
+   "ruang-target-sempit": 4,
+   "usang-umur": 3,
+   "usang-sl-tertembus": 1,
+   "usang-sudah-berjalan": 3,
+   "melawan-btc": 19,
+   "jauh-dari-entry": 17,
+   "tanpa-pemicu": 30,
+   "usang-tp-tercapai": 2,
+   "likuiditas-rendah": 17,
+   "sl-lebar": 4
+  },
+  "btc": {
+   "tr": -1,
+   "td": -1,
+   "tw": -1,
+   "ret3d": 0.15,
+   "ret7d": 1.65,
+   "px": 59923.1
+  },
+  "arah": {
+   "LONG": {
+    "status": "shadow",
+    "rataR": null,
+    "selesai": 0,
+    "jendela": 0,
+    "pemanasan": true
+   },
+   "SHORT": {
+    "status": "live",
+    "rataR": null,
+    "selesai": 0,
+    "jendela": 0,
+    "pemanasan": true
+   }
+  },
+  "detail": [
+   {
+    "s": "BTC",
+    "arah": "SHORT",
+    "mode": "live",
+    "skor": 66,
+    "grade": "B",
+    "umur": 1,
+    "pemicu": "wolf"
+   }
+  ]
  }
 ]

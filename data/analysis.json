@@ -1,8 +1,8 @@
 {
- "dibuat": "2026-11-28T02:08:05.631Z",
- "mesin": null,
- "totalBaris": 0,
- "menunggu": 0,
+ "dibuat": "2026-11-28T08:56:53.284Z",
+ "mesin": "915e23ff72ebfcb6",
+ "totalBaris": 1,
+ "menunggu": 1,
  "putusan": {
   "status": "BELUM SAH",
   "alasan": [

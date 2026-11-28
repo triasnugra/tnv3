@@ -1,16 +1,16 @@
 {
- "updated": "2026-11-28T02:08:05.631Z",
+ "updated": "2026-11-28T08:56:53.285Z",
  "chain": {
   "ok": true,
-  "n": 0,
-  "head": null,
+  "n": 1,
+  "head": "cd57660e294195599ad7",
   "errors": []
  },
  "protokol": {
   "mulai": "2026-11-26T08:09:53.945Z",
   "engine": "915e23ff72ebfcb6"
  },
- "dihitung": 0,
+ "dihitung": 1,
  "tidakDihitung": 0,
  "arah": {
   "LONG": {
@@ -32,9 +32,9 @@
   "tr": -1,
   "td": -1,
   "tw": -1,
-  "ret3d": -1.13,
-  "ret7d": -2.27,
-  "px": 60577.18
+  "ret3d": 0.15,
+  "ret7d": 1.65,
+  "px": 59923.1
  },
  "putusan": {
   "status": "BELUM SAH",
